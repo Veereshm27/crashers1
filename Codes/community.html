@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community & Mentorship with Partnerships</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --secondary-blue: #007bff;
+            --light-blue: #e7f1ff;
+            --dark-blue: #004494;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--white);
+            color: var(--dark-blue);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-blue);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-blue);
+            bottom: -10px;
+            left: 0;
+        }
+        
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--dark-blue);
+            max-width: 800px;
+            margin: 1.5rem auto 0;
+        }
+        
+        .mentors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .mentor-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 86, 179, 0.15);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--light-blue);
+        }
+        
+        .mentor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-blue);
+        }
+        
+        .mentor-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 86, 179, 0.2);
+        }
+        
+        .mentor-image-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .mentor-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--white);
+            box-shadow: 0 4px 12px rgba(0, 86, 179, 0.2);
+        }
+        
+        .linkedin-badge {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--secondary-blue);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--white);
+            color: var(--white);
+            font-size: 16px;
+            box-shadow: 0 2px 8px rgba(0, 86, 179, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .mentor-card:hover .linkedin-badge {
+            transform: scale(1.15);
+        }
+        
+        .mentor-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--dark-blue);
+        }
+        
+        .mentor-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--secondary-blue);
+            margin-bottom: 1rem;
+        }
+        
+        .mentor-quote {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--dark-blue);
+        }
+        
+        /* Partnership Section */
+        .partnership-section {
+            margin-top: 5rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--light-blue);
+        }
+        
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .partner-card {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 86, 179, 0.1);
+            transition: all 0.3s ease;
+            height: 120px;
+            border: 1px solid var(--light-blue);
+        }
+        
+        .partner-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 86, 179, 0.15);
+        }
+        
+        .partner-logo {
+            max-width: 100%;
+            max-height: 80px;
+            object-fit: contain;
+            filter: saturate(0) brightness(0.1) contrast(1.2);
+            transition: all 0.5s ease;
+        }
+        
+        .partner-card:hover .partner-logo {
+            filter: saturate(1) brightness(1) contrast(1);
+        }
+        
+        @media (max-width: 768px) {
+            .mentors-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .partners-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="section-header" data-aos="fade-down">
+            <h2>Community & Mentorship</h2>
+            <p>Connect with experienced mentors who are passionate about sharing their knowledge and helping you grow in your journey.</p>
+        </div>
+        
+        <div class="mentors-grid">
+            <div class="mentor-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="mentor-image-container">
+                    <img src="/api/placeholder/400/400" alt="Sarah Johnson" class="mentor-image">
+                    <a href="#" class="linkedin-badge">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+                <h3 class="mentor-name">Sarah Johnson</h3>
+                <div class="mentor-title">Machine Learning Mentor</div>
+                <p class="mentor-quote">"I'm passionate about demystifying AI concepts and helping newcomers build their first ML models with confidence."</p>
+            </div>
+            
+            <div class="mentor-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="mentor-image-container">
+                    <img src="/api/placeholder/400/400" alt="David Chen" class="mentor-image">
+                    <a href="#" class="linkedin-badge">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+                <h3 class="mentor-name">David Chen</h3>
+                <div class="mentor-title">Full-Stack Development Mentor</div>
+                <p class="mentor-quote">"Building products that solve real problems is what drives me. I love helping mentees develop their ideas into working applications."</p>
+            </div>
+            
+            <div class="mentor-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="mentor-image-container">
+                    <img src="/api/placeholder/400/400" alt="Maya Patel" class="mentor-image">
+                    <a href="#" class="linkedin-badge">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+                <h3 class="mentor-name">Maya Patel</h3>
+                <div class="mentor-title">UX/UI Design Mentor</div>
+                <p class="mentor-quote">"Great design is invisible. I help mentees create intuitive, accessible experiences that delight users while solving their problems."</p>
+            </div>
+            
+            <div class="mentor-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="mentor-image-container">
+                    <img src="/api/placeholder/400/400" alt="James Wilson" class="mentor-image">
+                    <a href="#" class="linkedin-badge">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+                <h3 class="mentor-name">James Wilson</h3>
+                <div class="mentor-title">Data Science Mentor</div>
+                <p class="mentor-quote">"Data tells stories if you know how to listen. I specialize in helping analysts transform raw data into meaningful business insights."</p>
+            </div>
+            
+            <div class="mentor-card" data-aos="fade-up" data-aos-delay="500">
+                <div class="mentor-image-container">
+                    <img src="/api/placeholder/400/400" alt="Elena Rodriguez" class="mentor-image">
+                    <a href="#" class="linkedin-badge">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+                <h3 class="mentor-name">Elena Rodriguez</h3>
+                <div class="mentor-title">Product Management Mentor</div>
+                <p class="mentor-quote">"Bridging the gap between technical teams and business needs is an art. I help aspiring PMs develop their strategic thinking."</p>
+            </div>
+            
+            <div class="mentor-card" data-aos="fade-up" data-aos-delay="600">
+                <div class="mentor-image-container">
+                    <img src="/api/placeholder/400/400" alt="Omar Hassan" class="mentor-image">
+                    <a href="#" class="linkedin-badge">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+                <h3 class="mentor-name">Omar Hassan</h3>
+                <div class="mentor-title">Cloud Architecture Mentor</div>
+                <p class="mentor-quote">"Building resilient, scalable infrastructure is my specialty. I enjoy helping engineers navigate the complexities of modern cloud environments."</p>
+            </div>
+        </div>
+        
+        <!-- Partnership Section -->
+        <div class="partnership-section">
+            <div class="section-header" data-aos="fade-down">
+                <h2>Our Partnership</h2>
+                <p>We collaborate with industry leaders to bring you the best opportunities and resources.</p>
+            </div>
+            
+            <div class="partners-grid">
+                <div class="partner-card" data-aos="fade-up" data-aos-delay="100">
+                    <img src="/api/placeholder/400/200" alt="Dell" class="partner-logo">
+                </div>
+                
+                <div class="partner-card" data-aos="fade-up" data-aos-delay="200">
+                    <img src="/api/placeholder/400/200" alt="Nations Trust Bank" class="partner-logo">
+                </div>
+                
+                <div class="partner-card" data-aos="fade-up" data-aos-delay="300">
+                    <img src="/api/placeholder/400/200" alt="Bank of America" class="partner-logo">
+                </div>
+                
+                <div class="partner-card" data-aos="fade-up" data-aos-delay="400">
+                    <img src="/api/placeholder/400/200" alt="Infosys" class="partner-logo">
+                </div>
+                
+                <div class="partner-card" data-aos="fade-up" data-aos-delay="500">
+                    <img src="/api/placeholder/400/200" alt="Allegis Group" class="partner-logo">
+                </div>
+                
+                <div class="partner-card" data-aos="fade-up" data-aos-delay="600">
+                    <img src="/api/placeholder/400/200" alt="Amazon" class="partner-logo">
+                </div>
+                
+                <div class="partner-card" data-aos="fade-up" data-aos-delay="700">
+                    <img src="/api/placeholder/400/200" alt="Capgemini" class="partner-logo">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS library
+            AOS.init({
+                duration: 800,
+                easing: 'ease-out',
+                once: true
+            });
+            
+            // Add extra interactions
+            const mentorCards = document.querySelectorAll('.mentor-card');
+            const partnerCards = document.querySelectorAll('.partner-card');
+            
+            mentorCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transition = 'all 0.3s ease';
+                });
+            });
+            
+            partnerCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transition = 'all 0.3s ease';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
