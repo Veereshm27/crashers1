@@ -1,0 +1,730 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Skill Assessment</title>
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-light: #93c5fd;
+            --secondary-color: #10b981;
+            --text-color: #1f2937;
+            --bg-color: #f9fafb;
+            --card-bg: #ffffff;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+        
+        .subtitle {
+            color: #6b7280;
+            font-size: 1rem;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .question {
+            margin-bottom: 1.5rem;
+        }
+        
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        
+        .option:hover {
+            background-color: #f3f4f6;
+        }
+        
+        .option input {
+            margin-right: 0.75rem;
+        }
+        
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .btn:hover {
+            background-color: #2563eb;
+        }
+        
+        .btn:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background-color: #e5e7eb;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .section-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-pill {
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.875rem;
+            background-color: #e5e7eb;
+        }
+        
+        .section-pill.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        #results {
+            display: none;
+        }
+        
+        .result-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .proficiency-level {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .score-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        
+        .category-scores {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .category-score {
+            flex: 1;
+            min-width: 120px;
+            padding: 1rem;
+            background-color: #f3f4f6;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .category-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .category-percentage {
+            font-size: 1.25rem;
+            color: var(--primary-color);
+        }
+        
+        .recommendations {
+            background-color: #f0fdf4;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .recommendation-title {
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .restart-btn {
+            background-color: #f3f4f6;
+            color: var(--text-color);
+            border: 1px solid #d1d5db;
+        }
+        
+        .restart-btn:hover {
+            background-color: #e5e7eb;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                    <path d="M2 17l10 5 10-5"></path>
+                    <path d="M2 12l10 5 10-5"></path>
+                </svg>
+            </div>
+            <h1>Technical Skill Assessment</h1>
+            <p class="subtitle">Evaluate your technical knowledge and identify your strengths and gaps</p>
+        </header>
+
+        <div id="intro" class="card">
+            <h2>Welcome to Your Technical Assessment</h2>
+            <p>This assessment will evaluate your knowledge in:</p>
+            <ul>
+                <li>SQL (Structured Query Language)</li>
+                <li>DBMS (Database Management Systems)</li>
+                <li>NoSQL databases</li>
+                <li>Excel and spreadsheets</li>
+            </ul>
+            <p>Based on your responses, we'll provide a comprehensive evaluation of your skills and recommend areas for improvement.</p>
+            <button id="start-btn" class="btn">Start Assessment</button>
+        </div>
+
+        <div id="assessment" style="display: none;">
+            <div class="section-indicator">
+                <span class="section-pill active">SQL</span>
+                <span class="section-pill">DBMS</span>
+                <span class="section-pill">NoSQL</span>
+                <span class="section-pill">Excel</span>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" style="width: 0%"></div>
+            </div>
+            
+            <div id="question-container" class="card">
+                <!-- Questions will be inserted here -->
+            </div>
+            
+            <div class="buttons">
+                <button id="prev-btn" class="btn restart-btn" disabled>Previous</button>
+                <button id="next-btn" class="btn">Next</button>
+            </div>
+        </div>
+
+        <div id="results" class="card">
+            <h2>Your Assessment Results</h2>
+            
+            <div class="score-display">
+                <span id="total-score">0</span>%
+            </div>
+            
+            <div class="proficiency-level">
+                Proficiency Level: <span id="proficiency"></span>
+            </div>
+            
+            <div class="result-section">
+                <h3>Category Breakdown</h3>
+                <div class="category-scores">
+                    <div class="category-score">
+                        <div class="category-name">SQL</div>
+                        <div class="category-percentage" id="sql-score">0%</div>
+                    </div>
+                    <div class="category-score">
+                        <div class="category-name">DBMS</div>
+                        <div class="category-percentage" id="dbms-score">0%</div>
+                    </div>
+                    <div class="category-score">
+                        <div class="category-name">NoSQL</div>
+                        <div class="category-percentage" id="nosql-score">0%</div>
+                    </div>
+                    <div class="category-score">
+                        <div class="category-name">Excel</div>
+                        <div class="category-percentage" id="excel-score">0%</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="result-section">
+                <h3>Strengths & Areas for Improvement</h3>
+                <div id="strengths" class="recommendations">
+                    <div class="recommendation-title">Your Strengths</div>
+                    <ul id="strengths-list">
+                        <!-- Will be populated dynamically -->
+                    </ul>
+                </div>
+                <br>
+                <div id="improvements" class="recommendations">
+                    <div class="recommendation-title">Areas to Improve</div>
+                    <ul id="improvements-list">
+                        <!-- Will be populated dynamically -->
+                    </ul>
+                </div>
+            </div>
+            
+            <button id="restart-btn" class="btn restart-btn">Take Assessment Again</button>
+
+<!-- Add this next to the restart button in the results section -->
+<a href="homepage.html" class="btn" style="margin-left: 10px; background-color: #4f46e5; text-decoration: none; display: inline-block;">Go to Home</a>
+        </div>
+    </div>
+
+    <script>
+        // Assessment questions
+        const questions = [
+            // SQL Questions
+            {
+                category: "SQL",
+                question: "Which SQL statement is used to extract data from a database?",
+                options: ["SELECT", "EXTRACT", "GET", "OPEN"],
+                correctAnswer: 0
+            },
+            {
+                category: "SQL",
+                question: "Which SQL clause is used to filter records?",
+                options: ["FILTER", "WHERE", "RESTRICT", "HAVING"],
+                correctAnswer: 1
+            },
+            {
+                category: "SQL",
+                question: "Which SQL join returns rows when there is a match in at least one of the tables?",
+                options: ["FULL JOIN", "INNER JOIN", "LEFT JOIN", "RIGHT JOIN"],
+                correctAnswer: 0
+            },
+            {
+                category: "SQL",
+                question: "What does the SQL GROUP BY statement do?",
+                options: [
+                    "It sorts the result in ascending or descending order",
+                    "It filters the result based on a condition",
+                    "It groups rows that have the same values into summary rows",
+                    "It joins two tables based on a related column"
+                ],
+                correctAnswer: 2
+            },
+            {
+                category: "SQL",
+                question: "Which SQL function returns the current date and time?",
+                options: ["GETDATE()", "NOW()", "CURRENT_DATE()", "DATETIME()"],
+                correctAnswer: 1
+            },
+            
+            // DBMS Questions
+            {
+                category: "DBMS",
+                question: "What is normalization in DBMS?",
+                options: [
+                    "The process of removing redundant data",
+                    "The process of adding redundant data for faster retrieval",
+                    "The process of securing database access",
+                    "The process of database backup"
+                ],
+                correctAnswer: 0
+            },
+            {
+                category: "DBMS",
+                question: "Which of the following is NOT a property of a transaction in DBMS?",
+                options: ["Atomicity", "Consistency", "Isolation", "Redundancy"],
+                correctAnswer: 3
+            },
+            {
+                category: "DBMS",
+                question: "What is a foreign key?",
+                options: [
+                    "A key used to encrypt data in a database",
+                    "A primary key in another table",
+                    "A field that links two tables together",
+                    "A backup key used when primary key fails"
+                ],
+                correctAnswer: 2
+            },
+            {
+                category: "DBMS",
+                question: "Which of the following is not a type of database model?",
+                options: ["Relational model", "Network model", "Sequential model", "Hierarchical model"],
+                correctAnswer: 2
+            },
+            {
+                category: "DBMS",
+                question: "What does ACID stand for in database transactions?",
+                options: [
+                    "Atomicity, Consistency, Isolation, Durability",
+                    "Aggregation, Concurrency, Isolation, Dependency",
+                    "Authentication, Consistency, Integrity, Durability",
+                    "Atomicity, Correlation, Integration, Decomposition"
+                ],
+                correctAnswer: 0
+            },
+            
+            // NoSQL Questions
+            {
+                category: "NoSQL",
+                question: "Which of the following is NOT a type of NoSQL database?",
+                options: ["Document stores", "Key-value stores", "Relational database", "Graph database"],
+                correctAnswer: 2
+            },
+            {
+                category: "NoSQL",
+                question: "Which NoSQL database is known for its document-oriented storage?",
+                options: ["Redis", "MongoDB", "Cassandra", "Neo4j"],
+                correctAnswer: 1
+            },
+            {
+                category: "NoSQL",
+                question: "What does the CAP theorem state?",
+                options: [
+                    "A distributed database system can have at most two of: consistency, availability, and partition tolerance",
+                    "A database must be consistent, available, and reliable",
+                    "A database can only process a certain number of operations per second",
+                    "NoSQL databases are faster than SQL databases"
+                ],
+                correctAnswer: 0
+            },
+            {
+                category: "NoSQL",
+                question: "Which of the following is an advantage of NoSQL over traditional RDBMS?",
+                options: [
+                    "Better ACID compliance",
+                    "Stronger data integrity constraints",
+                    "Better handling of structured data",
+                    "Better scalability for large volumes of unstructured data"
+                ],
+                correctAnswer: 3
+            },
+            {
+                category: "NoSQL",
+                question: "Which NoSQL database uses a key-value storage model?",
+                options: ["MongoDB", "Redis", "Neo4j", "Cassandra"],
+                correctAnswer: 1
+            },
+            
+            // Excel Questions
+            {
+                category: "Excel",
+                question: "Which function in Excel is used to count cells with numbers?",
+                options: ["COUNT", "SUM", "AVERAGE", "COUNTA"],
+                correctAnswer: 0
+            },
+            {
+                category: "Excel",
+                question: "What does VLOOKUP function do in Excel?",
+                options: [
+                    "Looks for a value in the leftmost column and returns a value in the same row",
+                    "Validates data in a lookup table",
+                    "Looks for duplicates in a table",
+                    "Searches for values vertically in a specified range"
+                ],
+                correctAnswer: 0
+            },
+            {
+                category: "Excel",
+                question: "Which of the following is NOT a valid Excel chart type?",
+                options: ["Pie Chart", "Bar Chart", "Network Chart", "Line Chart"],
+                correctAnswer: 2
+            },
+            {
+                category: "Excel",
+                question: "What is a Pivot Table used for?",
+                options: [
+                    "To create charts quickly",
+                    "To summarize, analyze, explore, and present summary data",
+                    "To format cells automatically",
+                    "To calculate mathematical equations"
+                ],
+                correctAnswer: 1
+            },
+            {
+                category: "Excel",
+                question: "What does the Excel function IF() do?",
+                options: [
+                    "Returns one value if a condition is true and another value if false",
+                    "Checks if a value exists in a range",
+                    "Checks if a formula has an error",
+                    "Returns the first non-empty value in a range"
+                ],
+                correctAnswer: 0
+            }
+        ];
+
+        // Variables to track assessment state
+        let currentQuestionIndex = 0;
+        let userAnswers = Array(questions.length).fill(null);
+        
+        // DOM elements
+        const introSection = document.getElementById('intro');
+        const assessmentSection = document.getElementById('assessment');
+        const resultsSection = document.getElementById('results');
+        const questionContainer = document.getElementById('question-container');
+        const progressBar = document.querySelector('.progress-bar');
+        const sectionPills = document.querySelectorAll('.section-pill');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        
+        // Event listeners
+        document.getElementById('start-btn').addEventListener('click', startAssessment);
+        prevBtn.addEventListener('click', goToPreviousQuestion);
+        nextBtn.addEventListener('click', goToNextQuestion);
+        document.getElementById('restart-btn').addEventListener('click', restartAssessment);
+document.getElementById('home-btn').addEventListener('click', function() {
+    resultsSection.style.display = 'none';
+    introSection.style.display = 'block';
+});
+        
+        // Start the assessment
+        function startAssessment() {
+            introSection.style.display = 'none';
+            assessmentSection.style.display = 'block';
+            displayQuestion(currentQuestionIndex);
+        }
+        
+        // Display current question
+        function displayQuestion(index) {
+            const question = questions[index];
+            
+            let optionsHTML = '';
+            question.options.forEach((option, i) => {
+                optionsHTML += `
+                    <div class="option">
+                        <input type="radio" name="answer" id="option${i}" value="${i}" ${userAnswers[index] === i ? 'checked' : ''}>
+                        <label for="option${i}">${option}</label>
+                    </div>`;
+            });
+            
+            questionContainer.innerHTML = `
+                <div class="question">
+                    <div class="question-text">${index + 1}. ${question.question}</div>
+                    <div class="options">
+                        ${optionsHTML}
+                    </div>
+                </div>`;
+                
+            // Update progress bar
+            const progress = ((index + 1) / questions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            
+            // Update section pills
+            sectionPills.forEach(pill => pill.classList.remove('active'));
+            const currentSection = question.category;
+            for (let i = 0; i < sectionPills.length; i++) {
+                if (sectionPills[i].textContent === currentSection) {
+                    sectionPills[i].classList.add('active');
+                    break;
+                }
+            }
+            
+            // Update navigation buttons
+            prevBtn.disabled = index === 0;
+            if (index === questions.length - 1) {
+                nextBtn.textContent = 'Submit';
+            } else {
+                nextBtn.textContent = 'Next';
+            }
+            
+            // Add event listeners to options
+            document.querySelectorAll('input[name="answer"]').forEach(input => {
+                input.addEventListener('change', () => {
+                    userAnswers[currentQuestionIndex] = parseInt(input.value);
+                });
+            });
+        }
+        
+        // Navigate to previous question
+        function goToPreviousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion(currentQuestionIndex);
+            }
+        }
+        
+        // Navigate to next question or submit answers
+        function goToNextQuestion() {
+            // Save current answer
+            const selectedOption = document.querySelector('input[name="answer"]:checked');
+            if (selectedOption) {
+                userAnswers[currentQuestionIndex] = parseInt(selectedOption.value);
+            }
+            
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion(currentQuestionIndex);
+            } else {
+                // This is the last question, evaluate results
+                evaluateResults();
+            }
+        }
+        
+        // Calculate and display results
+        function evaluateResults() {
+            assessmentSection.style.display = 'none';
+            resultsSection.style.display = 'block';
+            
+            // Calculate scores by category
+            const categories = ["SQL", "DBMS", "NoSQL", "Excel"];
+            const categoryScores = {};
+            const categoryQuestions = {};
+            
+            categories.forEach(category => {
+                categoryScores[category] = 0;
+                categoryQuestions[category] = 0;
+            });
+            
+            let totalCorrect = 0;
+            
+            questions.forEach((question, index) => {
+                const category = question.category;
+                categoryQuestions[category]++;
+                
+                if (userAnswers[index] === question.correctAnswer) {
+                    categoryScores[category]++;
+                    totalCorrect++;
+                }
+            });
+            
+            // Calculate percentages
+            const totalScore = Math.round((totalCorrect / questions.length) * 100);
+            document.getElementById('total-score').textContent = totalScore;
+            
+            categories.forEach(category => {
+                const score = Math.round((categoryScores[category] / categoryQuestions[category]) * 100);
+                document.getElementById(`${category.toLowerCase()}-score`).textContent = `${score}%`;
+            });
+            
+            // Determine proficiency level
+            let proficiency;
+            if (totalScore < 40) {
+                proficiency = "Beginner";
+            } else if (totalScore < 75) {
+                proficiency = "Intermediate";
+            } else {
+                proficiency = "Advanced";
+            }
+            document.getElementById('proficiency').textContent = proficiency;
+            
+            // Identify strengths and areas for improvement
+            const strengthsList = document.getElementById('strengths-list');
+            const improvementsList = document.getElementById('improvements-list');
+            
+            strengthsList.innerHTML = '';
+            improvementsList.innerHTML = '';
+            
+            categories.forEach(category => {
+                const score = Math.round((categoryScores[category] / categoryQuestions[category]) * 100);
+                const listItem = document.createElement('li');
+                
+                if (score >= 70) {
+                    listItem.textContent = `${category}: Good understanding of core concepts`;
+                    strengthsList.appendChild(listItem);
+                } else {
+                    let recommendation;
+                    switch(category) {
+                        case "SQL":
+                            recommendation = "Practice writing more complex queries and joins";
+                            break;
+                        case "DBMS":
+                            recommendation = "Focus on understanding database design principles and normalization";
+                            break;
+                        case "NoSQL":
+                            recommendation = "Learn more about different NoSQL database types and their use cases";
+                            break;
+                        case "Excel":
+                            recommendation = "Practice using advanced functions and analytical tools";
+                            break;
+                    }
+                    listItem.textContent = `${category}: ${recommendation}`;
+                    improvementsList.appendChild(listItem);
+                }
+            });
+            
+            // If no strengths or improvements, add a message
+            if (strengthsList.children.length === 0) {
+                const listItem = document.createElement('li');
+                listItem.textContent = "Keep practicing to develop technical strengths";
+                strengthsList.appendChild(listItem);
+            }
+            
+            if (improvementsList.children.length === 0) {
+                const listItem = document.createElement('li');
+                listItem.textContent = "Excellent work! Consider exploring more advanced topics";
+                improvementsList.appendChild(listItem);
+            }
+        }
+        
+        // Restart the assessment
+        function restartAssessment() {
+            currentQuestionIndex = 0;
+            userAnswers = Array(questions.length).fill(null);
+            resultsSection.style.display = 'none';
+            introSection.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

@@ -62,7 +62,7 @@ function handleLogin($conn) {
             $_SESSION['username'] = $user['username'];
             
             // Redirect to dashboard or home page
-            header("Location: dashboard.php");
+            header("Location:homepage.html ");
             exit();
         } else {
             // Invalid password

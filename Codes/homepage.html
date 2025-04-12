@@ -1,376 +1,374 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkillPath - Your Data Analyst Career GPS</title>
+    <title>SkillPath - Your Career GPS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4ade80;
+            --info: #0ea5e9;
+            --warning: #fbbf24;
+            --danger: #f87171;
+            --background: #f0f4f8;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background-color: #f0f7ff;
-            color: #333;
+            background-color: var(--background);
+            color: var(--dark);
+            line-height: 1.6;
         }
         
         header {
-            background-color: #e6f2ff; /* Changed to light blue */
-            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
         }
         
         .logo i {
-            font-size: 1.8rem;
-            color: #4361ee;
+            margin-right: 0.5rem;
+            color: var(--accent);
         }
         
-        .logo h1 {
-            color: #673f29;
-            font-size: 1.8rem;
-            font-weight: 600;
-        }
-        
-        .hero {
+        nav ul {
             display: flex;
-            align-items: center;
-            padding: 60px 40px;
-            max-width: 1200px;
-            margin: 0 auto;
+            list-style: none;
         }
         
-        .hero-content {
-            flex: 1;
-            padding-right: 40px;
+        nav ul li {
+            margin-left: 1.5rem;
         }
         
-        .hero-image {
-            flex: 1;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .hero-image img {
-            max-width: 500px;
-            height: 400px;
-            object-fit: contain;
-        }
-        
-        .hero h2 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: #2d3748;
-            line-height: 1.2;
-            margin-bottom: 20px;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            color: #4a5568;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-        
-        .start-btn {
-            background-color: #4361ee;
+        nav ul li a {
             color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 5px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
+            text-decoration: none;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
         }
         
-        .start-btn:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-            z-index: -1;
+        nav ul li a i {
+            margin-right: 0.5rem;
         }
         
-        .start-btn:hover:before {
-            width: 100%;
+        nav ul li a:hover {
+            opacity: 1;
         }
         
-        .start-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 7px 14px rgba(67, 97, 238, 0.3);
-        }
-        
-        .features {
-            background-color: white;
-            padding: 60px 40px;
-        }
-        
-        .features-container {
+        .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 2rem;
         }
         
-        .features h3 {
+        .hero-section {
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.1), rgba(76, 201, 240, 0.1));
+            border-radius: 15px;
+            padding: 3rem 2rem;
             text-align: center;
-            font-size: 2rem;
-            margin-bottom: 40px;
-            color: #2d3748;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .hero-section h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .hero-section p {
+            font-size: 1.2rem;
+            color: var(--dark);
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
         }
         
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 2rem;
+            margin-top: 2rem;
         }
         
         .feature-card {
-            background-color: #f8fafc;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
         }
         
         .feature-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
         
         .feature-icon {
-            font-size: 2rem;
-            color: #4361ee;
-            margin-bottom: 15px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
         }
         
-        .feature-card h4 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: #2d3748;
+        .feature-icon i {
+            font-size: 3.5rem;
+            color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.3rem;
         }
         
         .feature-card p {
-            color: #718096;
-            line-height: 1.6;
+            color: #64748b;
+            font-size: 1rem;
         }
         
-        /* Added footer styles */
-        footer {
-            background-color: #e6f2ff;
-            padding: 30px 40px;
+        .about-section {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 3rem 2rem;
+            margin: 4rem 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .about-section h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
             text-align: center;
         }
         
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .about-section p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+            color: #4b5563;
         }
         
-        .footer-links {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 20px;
+        footer {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
         }
         
-        .footer-links a {
-            color: #4361ee;
+        footer p {
+            opacity: 0.9;
+        }
+        
+        .profile-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .profile-dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: var(--shadow);
+            border-radius: 10px;
+            z-index: 1;
+        }
+        
+        .profile-dropdown-content a {
+            color: var(--dark);
+            padding: 12px 16px;
             text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
+            display: block;
+            transition: background 0.3s;
         }
         
-        .footer-links a:hover {
-            color: #2d3748;
+        .profile-dropdown-content a:hover {
+            background-color: #f1f5f9;
         }
         
-        .social-icons {
+        .profile-dropdown:hover .profile-dropdown-content {
+            display: block;
+        }
+        
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent);
+            border-radius: 50%;
             display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .social-icons a {
-            color: #4361ee;
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-        
-        .social-icons a:hover {
-            transform: translateY(-3px);
-        }
-        
-        .copyright {
-            color: #718096;
-            font-size: 0.9rem;
-        }
-        
-        @media (max-width: 900px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                padding: 40px 20px;
-            }
-            
-            .hero-content {
-                padding-right: 0;
-                margin-bottom: 40px;
-            }
-            
-            .start-btn {
-                margin: 0 auto;
-            }
-            
-            header {
-                padding: 15px 20px;
-            }
-            
-            .footer-links {
-                flex-direction: column;
-                gap: 15px;
-            }
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
         }
         
         @media (max-width: 768px) {
-            .hero h2 {
-                font-size: 2.5rem;
+            .features-grid {
+                grid-template-columns: 1fr;
             }
-        }
-
-        /* SVG Styles */
-        .telecommuting-svg {
-            width: 500px;
-            height: 400px;
+            
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
         }
     </style>
 </head>
 <body>
     <header>
         <div class="logo">
-            <i class="fas fa-graduation-cap"></i>
-            <h1>SkillPath</h1>
+            <i class="fas fa-rocket"></i>
+            SkillPath
         </div>
+        <nav>
+            <ul>
+                <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#features"><i class="fas fa-th-large"></i> Features</a></li>
+                <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+                <li class="profile-dropdown">
+                    <a href="#profile"><i class="fas fa-user-circle"></i> Profile</a>
+                    <div class="profile-dropdown-content">
+                        <a href="#dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                        <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
+                        <a href="#logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
     </header>
     
-    <section class="hero">
-        <div class="hero-content">
-            <h2>Start your<br>data analyst<br>journey today</h2>
-            <p>Learn data analytics from scratch with practice oriented courses designed by industry experts.</p>
+    <div class="container">
+        <section class="hero-section" id="home">
+            <h1>Map Your Path to Success</h1>
+            <p>Discover exactly what skills you need to land your dream tech job with personalized learning roadmaps tailored to your current level.</p>
+        </section>
+        
+        <div class="features-grid" id="features">
+            <div class="feature-card" onclick="location.href='assesment.html'">
+                <div class="feature-icon">
+                    <i class="fas fa-diagnoses"></i>
+                </div>
+                <h3>Skill Assessment</h3>
+                <p>Evaluate your current technical knowledge and identify your strengths and gaps</p>
+            </div>
             
-            <button class="start-btn">Start learning today <i class="fas fa-bolt"></i></button>
+            <div class="feature-card" onclick="location.href='CareerExplorer.html'">
+                <div class="feature-icon">
+                    <i class="fas fa-binoculars"></i>
+                </div>
+                <h3>Career Explorer</h3>
+                <p>Discover diverse tech career paths and find the perfect role that matches your interests</p>
+            </div>
+            
+            <div class="feature-card" onclick="location.href='LearningRoadmap.html'">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h3>Learning Roadmap</h3>
+                <p>Follow your personalized step-by-step guide designed specifically for your career goals</p>
+            </div>
+            
+            <div class="feature-card" onclick="location.href='LearningResource.html'">
+                <div class="feature-icon">
+                    <i class="fas fa-book-reader"></i>
+                </div>
+                <h3>Learning Resources</h3>
+                <p>Access curated content from top platforms that match your learning style</p>
+            </div>
+            
+            <div class="feature-card" onclick="location.href='progress.html'">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <h3>Progress Tracking</h3>
+                <p>Monitor your advancement with visual analytics and stay motivated with achievements</p>
+            </div>
+            
+            <div class="feature-card" onclick="location.href='community.html'">
+                <div class="feature-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <h3>Community & Mentorship</h3>
+                <p>Connect with peers and industry mentors who can guide your learning journey</p>
+            </div>
         </div>
         
-        <div class="hero-image">
-            <img src="photo.jpg" width="500" height="400" alt="Data analyst working on analysis">
-        </div>
-    </section>
+        <section class="about-section" id="about">
+            <h2>About SkillPath</h2>
+            <p>SkillPath was created to solve the problem many students face: knowing what to learn next. We understand the overwhelming feeling of navigating the tech education landscape without clear direction.</p>
+            <p>Our platform uses intelligent analysis to assess your current skills, understand your career goals, and create personalized learning pathways that efficiently bridge the gap between where you are and where you want to be.</p>
+            <p>Unlike generic career advice, SkillPath provides actionable, step-by-step guidance tailored specifically to your situation. We combine resources from across the web, organizing them into a coherent learning journey that makes sense for your unique path.</p>
+        </section>
+    </div>
     
-    <section class="features">
-        <div class="features-container">
-            <h3>Why Choose Our Data Analyst Course?</h3>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-pie"></i>
-                    </div>
-                    <h4>Personalized Skill Assessment</h4>
-                    <p>Identify your current skill level and get a customized learning plan designed just for you.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <h4>Hands-on Practice</h4>
-                    <p>Learn by doing with real-world datasets and industry-relevant projects for your portfolio.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-route"></i>
-                    </div>
-                    <h4>Clear Career Roadmap</h4>
-                    <p>Follow a structured path from beginner to job-ready with clear milestones along the way.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-certificate"></i>
-                    </div>
-                    <h4>Industry-Recognized Skills</h4>
-                    <p>Focus on the tools and technologies that employers are actually looking for.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-user-friends"></i>
-                    </div>
-                    <h4>Mentor Support</h4>
-                    <p>Get guidance from experienced data professionals who know what it takes to succeed.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                    <h4>Job-Ready Portfolio</h4>
-                    <p>Graduate with projects and skills that demonstrate your abilities to potential employers.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Added footer section -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="#">About Us</a>
-                <a href="#">Courses</a>
-                <a href="#">Resources</a>
-                <a href="#">Contact</a>
-                <a href="#">Privacy Policy</a>
-            </div>
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-            <p class="copyright">© 2025 SkillPath. All rights reserved.</p>
-        </div>
+        <p>&copy; 2025 SkillPath. All rights reserved.</p>
     </footer>
     
     <script>
-        // Modified JavaScript to navigate to login.html when the button is clicked
-        document.querySelector('.start-btn').addEventListener('click', function() {
-            console.log('Start learning button clicked');
-            window.location.href = 'index.php';
+        // Simple JavaScript to handle navigation
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const href = this.getAttribute('onclick').split("'")[1];
+                console.log(`Navigating to: ${href}`);
+                // In a real implementation, we would navigate to the new page here
+            });
         });
     </script>
 </body>

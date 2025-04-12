@@ -1,0 +1,496 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Learning Hub</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --dbms-color: #3498db;
+            --excel-color: #27ae60;
+            --sql-color: #e67e22;
+            --nosql-color: #9b59b6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--secondary-color);
+            color: var(--light-color);
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .nav-container {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--secondary-color);
+            padding: 0.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0.5rem 1rem;
+        }
+
+        nav ul li a {
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--light-color);
+            color: var(--secondary-color);
+        }
+
+        .section {
+            margin: 4rem 0;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--light-color);
+        }
+
+        .section-icon {
+            font-size: 2.5rem;
+            margin-right: 1rem;
+            background-color: var(--light-color);
+            height: 60px;
+            width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover .section-icon {
+            transform: rotate(360deg);
+        }
+
+        .section-title {
+            flex-grow: 1;
+        }
+
+        .section-title h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .resources {
+            margin-top: 1.5rem;
+        }
+
+        .resources h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 0.5rem;
+        }
+
+        .resource-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .resource-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background-color: var(--light-color);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--dark-color);
+            transition: all 0.3s ease;
+        }
+
+        .resource-link:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .resource-link i {
+            margin-right: 0.5rem;
+        }
+
+        /* Section specific colors */
+        #dbms .section-icon {
+            color: var(--dbms-color);
+        }
+
+        #excel .section-icon {
+            color: var(--excel-color);
+        }
+
+        #sql .section-icon {
+            color: var(--sql-color);
+        }
+
+        #nosql .section-icon {
+            color: var(--nosql-color);
+        }
+
+        #dbms .section-title h2,
+        #dbms .resources h3 {
+            color: var(--dbms-color);
+        }
+
+        #excel .section-title h2,
+        #excel .resources h3 {
+            color: var(--excel-color);
+        }
+
+        #sql .section-title h2,
+        #sql .resources h3 {
+            color: var(--sql-color);
+        }
+
+        #nosql .section-title h2,
+        #nosql .resources h3 {
+            color: var(--nosql-color);
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--light-color);
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .section-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .resource-links {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Database Learning Hub</h1>
+        <p>Your comprehensive resource for database technologies</p>
+    </header>
+
+    <div class="nav-container">
+        <nav>
+            <ul>
+                <li><a href="#dbms">DBMS</a></li>
+                <li><a href="#excel">Excel</a></li>
+                <li><a href="#sql">SQL</a></li>
+                <li><a href="#nosql">NoSQL</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="container">
+        <section id="dbms" class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div class="section-title">
+                    <h2>Database Management Systems</h2>
+                    <p>Understand the fundamentals and advanced concepts of DBMS</p>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>A Database Management System (DBMS) is software that manages databases, providing an interface for users to store, retrieve, update, and manage data. It serves as an intermediary between users and databases, ensuring data integrity, security, and efficiency.</p>
+                
+                <div class="resources">
+                    <h3>Learning Resources</h3>
+                    <div class="resource-links">
+                        <a href="https://www.tutorialspoint.com/dbms/index.htm" class="resource-link">
+                            <i class="fas fa-book"></i> DBMS Fundamentals
+                        </a>
+                        <a href="https://youtu.be/6Iu45VZGQDk?si=keMx8VCyL4ECcD6p" class="resource-link">
+                            <i class="fas fa-video"></i> Video Tutorials
+                        </a>
+                        <a href="https://www.codechef.com/learn/course/college-dbms" class="resource-link">
+                            <i class="fas fa-code"></i> Practical Exercises
+                        </a>
+                        <a href=https://youtu.be/eYpXCdvKwEQ?si=zajfKO-0BciRDsQR" class="resource-link">
+                            <i class="fas fa-graduation-cap"></i> Advanced Concepts
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="excel" class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-file-excel"></i>
+                </div>
+                <div class="section-title">
+                    <h2>Excel for Data Management</h2>
+                    <p>Harness the power of Excel for data analysis and management</p>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Microsoft Excel is a powerful spreadsheet application used for data organization, analysis, and visualization. While not a traditional database, Excel offers many database-like features that make it an essential tool for data professionals and business users alike.</p>
+                
+                <div class="resources">
+                    <h3>Learning Resources</h3>
+                    <div class="resource-links">
+                        <a href="https://www.w3schools.com/excel/excel_introduction.php" class="resource-link">
+                            <i class="fas fa-table"></i> Excel Basics
+                        </a>
+                        <a href="https://www.youtube.com/watch?v=NMuV2o9yrE4&list=PL4GEkVtNYGlIvNallFjR-_S9j1L50a6W3" class="resource-link">
+                            <i class="fas fa-chart-line"></i> Vedio Tutorials
+                        </a>
+                        <a href="https://www.youtube.com/watch?v=NMuV2o9yrE4&list=PL4GEkVtNYGlIvNallFjR-_S9j1L50a6W3" class="resource-link">
+                            <i class="fas fa-magic"></i> Excel Functions
+                        </a>
+                        <a href="https://www.youtube.com/watch?v=MMdcczmULrU" class="resource-link">
+                            <i class="fas fa-cogs"></i> Power Query & Pivot Tables
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sql" class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-server"></i>
+                </div>
+                <div class="section-title">
+                    <h2>SQL Databases</h2>
+                    <p>Master the language of relational databases</p>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Structured Query Language (SQL) is the standard language for relational database management systems. It allows users to create, read, update, and delete data in relational databases. SQL is essential for anyone working with structured data and relational database systems.</p>
+                
+                <div class="resources">
+                    <h3>Learning Resources</h3>
+                    <div class="resource-links">
+                        <a href="https://www.codechef.com/learn/course/sql" class="resource-link">
+                            <i class="fas fa-book-open"></i> SQL Fundamentals
+                        </a>
+                        <a href="https://youtu.be/hlGoQC332VM?si=-Adu16v8KI8MqZva" class="resource-link">
+                            <i class="fas fa-project-diagram"></i> Vedio Tutorials
+                        </a>
+                        <a href="https://youtu.be/HXV3zeQKqGY?si=trdKpV6aSWqDdBEC" class="resource-link">
+                            <i class="fas fa-laptop-code"></i> Interactive SQL Tutorials
+                        </a>
+                        <a href="https://www.codechef.com/learn/course/sql-intermediate" class="resource-link">
+                            <i class="fas fa-brain"></i> Advanced SQL Techniques
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="nosql" class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-sitemap"></i>
+                </div>
+                <div class="section-title">
+                    <h2>NoSQL Databases</h2>
+                    <p>Explore the world of non-relational databases</p>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>NoSQL (Not Only SQL) databases provide a mechanism for storage and retrieval of data that is modeled in means other than the tabular relations used in relational databases. They're designed for specific data models with flexible schemas, and are particularly useful for large sets of distributed data.</p>
+                
+                <div class="resources">
+                    <h3>Learning Resources</h3>
+                    <div class="resource-links">
+                        <a href="https://www.mongodb.com/resources/basics/databases/nosql-explained" class="resource-link">
+                            <i class="fas fa-cubes"></i> NoSQL Concepts
+                        </a>
+                        <a href="https://youtu.be/hl65apHxp64?si=0Qxe-d60p3ES_Ea3" class="resource-link">
+                            <i class="fas fa-list"></i> Vedio tutorials
+                        </a>
+                        <a href="https://youtu.be/dGHSKpx4Xjs?si=7qjYOqu3zwqczkr8" class="resource-link">
+                            <i class="fas fa-network-wired"></i> Graph Databases
+                        </a>
+                        <a href="https://youtu.be/Z_SdLS6G7jc?si=8wyZ3BsIMY3p5Fev" class="resource-link">
+                            <i class="fas fa-columns"></i> Column-Family Stores
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Database Learning Hub. All rights reserved.</p>
+    </footer>
+
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Back to top button functionality
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Add animations on scroll
+        const sections = document.querySelectorAll('.section');
+        
+        function checkScroll() {
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight * 0.75) {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        // Set initial state for animations
+        sections.forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        });
+        
+        // Check scroll position on load
+        window.addEventListener('load', checkScroll);
+        
+        // Check scroll position on scroll
+        window.addEventListener('scroll', checkScroll);
+    </script>
+</body>
+</html>

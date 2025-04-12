@@ -1,0 +1,735 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Explorer - Database & Data Skills</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2980b9;
+            --accent: #1abc9c;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            margin-right: 15px;
+            background: white;
+            color: var(--primary);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .logo-icon:hover {
+            transform: rotate(15deg);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin: 20px 0 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        h3 {
+            color: var(--dark);
+            margin: 15px 0 10px;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 15px 25px;
+            margin: 0 5px;
+            background: white;
+            color: var(--dark);
+            border-radius: var(--radius);
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+        
+        .tab:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+            background: var(--light);
+        }
+        
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .content {
+            display: none;
+            padding: 20px;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-top: 4px solid transparent;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid var(--accent);
+        }
+        
+        .card h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .level-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .entry {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .mid {
+            background-color: #e8f5e9;
+            color: #388e3c;
+        }
+        
+        .advanced {
+            background-color: #fff3e0;
+            color: #f57c00;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        li::before {
+            content: "•";
+            color: var(--accent);
+            font-weight: bold;
+            position: absolute;
+            left: 5px;
+            top: 0;
+            font-size: 1.2rem;
+        }
+        
+        .cert-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f5f7fa;
+            border-radius: var(--radius);
+        }
+        
+        .cert-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .cert-pill {
+            background-color: white;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .cert-pill:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .job-opportunities {
+            margin-top: 30px;
+            background-color: #e8f5e9;
+            padding: 20px;
+            border-radius: var(--radius);
+        }
+        
+        .job-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .job {
+            background-color: white;
+            padding: 15px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .job:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .job-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .job-company {
+            color: var(--dark);
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        
+        .job-type {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: var(--dark);
+            color: white;
+            border-radius: var(--radius);
+        }
+        
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tab {
+                width: 100%;
+                margin: 5px 0;
+            }
+            
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-compass"></i>
+                </div>
+                <h1>Career Explorer</h1>
+            </div>
+            <p>Comprehensive guide to career paths in Database & Data Skills</p>
+        </header>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="dbms">
+                <i class="fas fa-database"></i> DBMS
+            </div>
+            <div class="tab" data-tab="excel">
+                <i class="fas fa-table"></i> Excel
+            </div>
+            <div class="tab" data-tab="sql">
+                <i class="fas fa-code"></i> SQL
+            </div>
+            <div class="tab" data-tab="nosql">
+                <i class="fas fa-server"></i> NoSQL
+            </div>
+        </div>
+        
+        <!-- DBMS Content -->
+        <div class="content active" id="dbms">
+            <h2>Database Management Systems (DBMS)</h2>
+            <p>DBMS skills involve understanding how to design, implement, maintain, and optimize database systems that store and organize data efficiently.</p>
+            
+            <h3>Career Paths</h3>
+            <div class="card-container">
+                <div class="card">
+                    <span class="level-badge entry">Entry-Level</span>
+                    <h4>Database Technician</h4>
+                    <ul>
+                        <li>Assist in database installations and upgrades</li>
+                        <li>Perform basic database maintenance tasks</li>
+                        <li>Implement security measures</li>
+                        <li>Entry salary: $50,000-$65,000</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <span class="level-badge mid">Mid-Level</span>
+                    <h4>Database Administrator (DBA)</h4>
+                    <ul>
+                        <li>Manage database performance and security</li>
+                        <li>Implement backup and recovery strategies</li>
+                        <li>Optimize database performance</li>
+                        <li>Mid salary: $85,000-$110,000</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <span class="level-badge advanced">Advanced</span>
+                    <h4>Database Architect</h4>
+                    <ul>
+                        <li>Design complex database systems</li>
+                        <li>Implement large-scale data solutions</li>
+                        <li>Lead database strategy and governance</li>
+                        <li>Advanced salary: $120,000-$160,000+</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Key Skills & Tools</h3>
+            <ul>
+                <li>Relational database concepts (tables, keys, normalization)</li>
+                <li>Database software: Oracle, MySQL, Microsoft SQL Server, PostgreSQL</li>
+                <li>Database administration and maintenance techniques</li>
+                <li>Query optimization and performance tuning</li>
+                <li>Backup and recovery procedures</li>
+                <li>Data modeling and database design</li>
+            </ul>
+            
+            <div class="cert-section">
+                <h3>Recommended Certifications</h3>
+                <div class="cert-container">
+                    <div class="cert-pill">Oracle Database Administration</div>
+                    <div class="cert-pill">Microsoft Certified: Azure Database Administrator</div>
+                    <div class="cert-pill">IBM Certified Database Administrator</div>
+                    <div class="cert-pill">MySQL Database Administrator</div>
+                </div>
+            </div>
+            
+            <div class="job-opportunities">
+                <h3>Real-Time Job Opportunities</h3>
+                <div class="job-container">
+                    <div class="job">
+                        <div class="job-title">Database Administrator</div>
+                        <div class="job-company">Financial Services Sector</div>
+                        <div class="job-type">High demand in banking and insurance</div>
+                    </div>
+                    <div class="job">
+                        <div class="job-title">Database Engineer</div>
+                        <div class="job-company">Healthcare Industry</div>
+                        <div class="job-type">Growing field with electronic health records</div>
+                    </div>
+                    <div class="job">
+                        <div class="job-title">Database Architect</div>
+                        <div class="job-company">Technology Companies</div>
+                        <div class="job-type">Increasing need for data infrastructure</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Excel Content -->
+        <div class="content" id="excel">
+            <h2>Microsoft Excel</h2>
+            <p>Excel skills range from basic data entry to complex data analysis, financial modeling, and automation through macros and VBA.</p>
+            
+            <h3>Career Paths</h3>
+            <div class="card-container">
+                <div class="card">
+                    <span class="level-badge entry">Entry-Level</span>
+                    <h4>Data Entry Specialist</h4>
+                    <ul>
+                        <li>Create and maintain spreadsheets</li>
+                        <li>Perform basic data validation</li>
+                        <li>Generate simple reports</li>
+                        <li>Entry salary: $35,000-$50,000</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <span class="level-badge mid">Mid-Level</span>
+                    <h4>Financial Analyst</h4>
+                    <ul>
+                        <li>Build financial models</li>
+                        <li>Create dynamic dashboards</li>
+                        <li>Perform data analysis with PivotTables</li>
+                        <li>Mid salary: $70,000-$95,000</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <span class="level-badge advanced">Advanced</span>
+                    <h4>Excel Developer/Consultant</h4>
+                    <ul>
+                        <li>Create complex macros and VBA solutions</li>
+                        <li>Develop custom Excel applications</li>
+                        <li>Automate business processes</li>
+                        <li>Advanced salary: $90,000-$120,000+</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Key Skills & Tools</h3>
+            <ul>
+                <li>Data analysis (sorting, filtering, PivotTables)</li>
+                <li>Functions and formulas (VLOOKUP, INDEX-MATCH, statistical functions)</li>
+                <li>Data visualization (charts, conditional formatting)</li>
+                <li>Macros and VBA programming</li>
+                <li>Power Query for data transformation</li>
+                <li>Power Pivot for data modeling</li>
+            </ul>
+            
+            <div class="cert-section">
+                <h3>Recommended Certifications</h3>
+                <div class="cert-container">
+                    <div class="cert-pill">Microsoft Office Specialist (MOS): Excel</div>
+                    <div class="cert-pill">Microsoft Office Specialist: Excel Expert</div>
+                    <div class="cert-pill">Microsoft Certified: Data Analyst Associate</div>
+                    <div class="cert-pill">PACE: Professional Analyst Certification in Excel</div>
+                </div>
+            </div>
+            
+            <div class="job-opportunities">
+                <h3>Real-Time Job Opportunities</h3>
+                <div class="job-container">
+                    <div class="job">
+                        <div class="job-title">Financial Analyst</div>
+                        <div class="job-company">Investment Banking</div>
+                        <div class="job-type">High demand for financial modeling experts</div>
+                    </div>
+                    <div class="job">
+                        <div class="job-title">Business Intelligence Analyst</div>
+                        <div class="job-company">Retail and E-commerce</div>
+                        <div class="job-type">Growing need for data visualization</div>
+                    </div>
+                    <div class="job">
+                        <div class="job-title">Operations Analyst</div>
+                        <div class="job-company">Manufacturing</div>
+                        <div class="job-type">Focus on process optimization</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SQL Content -->
+        <div class="content" id="sql">
+            <h2>SQL (Structured Query Language)</h2>
+            <p>SQL is the standard language for managing and manipulating relational databases, essential for data extraction, transformation, and analysis.</p>
+            
+            <h3>Career Paths</h3>
+            <div class="card-container">
+                <div class="card">
+                    <span class="level-badge entry">Entry-Level</span>
+                    <h4>SQL Report Developer</h4>
+                    <ul>
+                        <li>Write basic SQL queries</li>
+                        <li>Generate and maintain reports</li>
+                        <li>Perform data extraction tasks</li>
+                        <li>Entry salary: $55,000-$70,000</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <span class="level-badge mid">Mid-Level</span>
+                    <h4>SQL Database Developer</h4>
+                    <ul>
+                        <li>Design and optimize SQL databases</li>
+                        <li>Create complex queries and stored procedures</li>
+                        <li>Implement data integrity controls</li>
+                        <li>Mid salary: $80,000-$105,000</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <span class="level-badge advanced">Advanced</span>
+                    <h4>Data Engineer</h4>
+                    <ul>
+                        <li>Build robust data pipelines</li>
+                        <li>Optimize database performance</li>
+                        <li>Design enterprise data architectures</li>
+                        <li>Advanced salary: $110,000-$150,000+</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Key Skills & Tools</h3>
+            <ul>
+                <li>Database query writing (SELECT, JOIN, GROUP BY)</li>
+                <li>Data manipulation (INSERT, UPDATE, DELETE)</li>
+                <li>Database design principles</li>
+                <li>Performance optimization and query tuning</li>
+                <li>Stored procedures and functions</li>
+                <li>Database systems: MySQL, PostgreSQL, SQL Server, Oracle</li>
+            </ul>
+            
+            <div class="cert-section">
+                <h3>Recommended Certifications</h3>
+                <div class="cert-container">
+                    <div class="cert-pill">Oracle Database SQL Certified Associate</div>
+                    <div class="cert-pill">Microsoft Certified: Azure Data Fundamentals</div>
+                    <div class="cert-pill">PostgreSQL Associate Certification</div>
+                    <div class="cert-pill">IBM Certified Database Associate - DB2</div>
+                </div>
+            </div>
+            
+            <div class="job-opportunities">
+                <h3>Real-Time Job Opportunities</h3>
+                <div class="job-container">
+                    <div class="job">
+                        <div class="job-title">SQL Developer</div>
+                        <div class="job-company">Financial Technology</div>
+                        <div class="job-type">High demand in payment processing</div>
+                    </div>
+                    <div class="job">
+                        <div class="job-title">Business Intelligence Developer</div>
+                        <div class="job-company">E-commerce & Retail</div>
+                        <div class="job-type">Growing need for data-driven decisions</div>
+                    </div>
+                    <div class="job">
+                        <div class="job-title">Data Analyst</div>
+                        <div class="job-company">Healthcare</div>
+                        <div class="job-type">Expanding field with healthcare analytics</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- NoSQL Content -->
+        <div class="content" id="nosql">
+            <h2>NoSQL Databases</h2>
+            <p>NoSQL databases provide flexible data models for handling unstructured data, high scalability, and specialized solutions for specific data challenges.</p>
+            
+            <h3>Career Paths</h3>
+            <div class="card-container">
+                <div class="card">
+                    <span class="level-badge entry">Entry-Level</span>
+                    <h4>NoSQL Developer</h4>
+                    <ul>
+                        <li>Work with document or key-value databases</li>
+                        <li>Implement basic data models</li>
+                        <li>Create and maintain application data layers</li>
+                        <li>Entry salary: $65,000-$85,000</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <span class="level-badge mid">Mid-Level</span>
+                    <h4>NoSQL Database Specialist</h4>
+                    <ul>
+                        <li>Design scalable NoSQL databases</li>
+                        <li>Implement data migration strategies</li>
+                        <li>Optimize database performance</li>
+                        <li>Mid salary: $95,000-$120,000</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <span class="level-badge advanced">Advanced</span>
+                    <h4>Big Data Architect</h4>
+                    <ul>
+                        <li>Design distributed database systems</li>
+                        <li>Implement hybrid SQL/NoSQL solutions</li>
+                        <li>Lead enterprise data strategy</li>
+                        <li>Advanced salary: $130,000-$170,000+</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Key Skills & Tools</h3>
+            <ul>
+                <li>NoSQL database types (document, key-value, columnar, graph)</li>
+                <li>Database systems: MongoDB, Cassandra, Redis, Neo4j</li>
+                <li>Distributed database concepts</li>
+                <li>Data modeling for unstructured data</li>
+                <li>Scaling and sharding techniques</li>
+                <li>Cloud database platforms (AWS DynamoDB, Azure Cosmos DB)</li>
+            </ul>
+            
+            <div class="cert-section">
+                <h3>Recommended Certifications</h3>
+                <div class="cert-container">
+                    <div class="cert-pill">MongoDB Certified Developer</div>
+                    <div class="cert-pill">MongoDB Certified DBA</div>
+                    <div class="cert-pill">AWS Certified Database - Specialty</div>
+                    <div class="cert-pill">Neo4j Certified Professional</div>
+                    <div class="cert-pill">DataStax Apache Cassandra Developer</div>
+                </div>
+            </div>
+            
+            <div class="job-opportunities">
+                <h3>Real-Time Job Opportunities</h3>
+                <div class="job-container">
+                    <div class="job">
+                        <div class="job-title">MongoDB Developer</div>
+                        <div class="job-company">Web Development</div>
+                        <div class="job-type">High demand in modern web applications</div>
+                    </div>
+                    <div class="job">
+                        <div class="job-title">Big Data Engineer</div>
+                        <div class="job-company">Tech Companies</div>
+                        <div class="job-type">Growing field with IoT and analytics</div>
+                    </div>
+                    <div class="job">
+                        <div class="job-title">Cloud Database Architect</div>
+                        <div class="job-company">SaaS Companies</div>
+                        <div class="job-type">Increasing demand for cloud-native solutions</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Career Explorer Guide © 2025 | Database & Data Skills</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and content sections
+                    tabs.forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    document.getElementById(tab.getAttribute('data-tab')).classList.add('active');
+                });
+            });
+            
+            // Enhanced hover effects for cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.backgroundColor = '#f9f9f9';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.backgroundColor = 'white';
+                });
+            });
+            
+            // Animated scroll to sections
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Logo icon animation
+            const logoIcon = document.querySelector('.logo-icon');
+            logoIcon.addEventListener('mouseenter', () => {
+                logoIcon.style.transform = 'rotate(15deg)';
+            });
+            
+            logoIcon.addEventListener('mouseleave', () => {
+                logoIcon.style.transform = 'rotate(0deg)';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,664 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills Progress Tracker</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --success: #4cc9f0;
+            --info: #4895ef;
+            --warning: #f72585;
+            --danger: #ff4d6d;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --bg-light: #f5f7ff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            padding: 1rem;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .filter-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .filter-container label {
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        
+        select, input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            font-size: 0.9rem;
+        }
+        
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        button:hover {
+            background: var(--secondary);
+        }
+        
+        .progress-container {
+            height: 24px;
+            background: #e9ecef;
+            border-radius: 12px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--info), var(--primary));
+            border-radius: 12px;
+            transition: width 0.5s ease;
+            position: relative;
+        }
+        
+        .progress-text {
+            position: absolute;
+            right: 10px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+        }
+        
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            flex: 1;
+            min-width: 120px;
+            border-right: 1px solid #eee;
+        }
+        
+        .stat-item:last-child {
+            border-right: none;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: #6c757d;
+            text-transform: uppercase;
+        }
+        
+        .trend-up {
+            color: #28a745;
+        }
+        
+        .trend-down {
+            color: #dc3545;
+        }
+        
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .leaderboard-item:last-child {
+            border-bottom: none;
+        }
+        
+        .rank {
+            font-weight: 700;
+            color: var(--primary);
+            min-width: 30px;
+        }
+        
+        .user-info {
+            flex: 1;
+            padding: 0 1rem;
+        }
+        
+        .score {
+            font-weight: 600;
+        }
+        
+        .user-highlight {
+            background: rgba(67, 97, 238, 0.1);
+            border-radius: 4px;
+        }
+        
+        .course-icon {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        
+        .sql-color { background-color: var(--primary); }
+        .dbms-color { background-color: var(--info); }
+        .nosql-color { background-color: var(--warning); }
+        .excel-color { background-color: var(--success); }
+        
+        .improvement-card {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            background: #f8f9fa;
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+        }
+        
+        .improvement-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-row {
+                flex-direction: column;
+            }
+            
+            .stat-item {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+                padding: 0.75rem;
+            }
+            
+            .stat-item:last-child {
+                border-bottom: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Skills Progress Tracker</h1>
+            <p>Track your learning progress across technical courses</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="filter-container">
+            <div>
+                <label for="user-select">User:</label>
+                <select id="user-select">
+                    <option value="0">Loading users...</option>
+                </select>
+            </div>
+            <div>
+                <label for="date-range">Time Period:</label>
+                <select id="date-range">
+                    <option value="7">Last 7 days</option>
+                    <option value="30" selected>Last 30 days</option>
+                    <option value="90">Last 3 months</option>
+                    <option value="all">All time</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="dashboard">
+            <!-- Overall Progress Card -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Overall Progress</span>
+                </div>
+                <div class="card-body">
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <div class="stat-value" id="overall-score">0%</div>
+                            <div class="stat-label">Average Score</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="completed-assessments">0</div>
+                            <div class="stat-label">Assessments</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="proficiency-level">-</div>
+                            <div class="stat-label">Level</div>
+                        </div>
+                    </div>
+                    
+                    <h4>Course Progress</h4>
+                    <div>
+                        <div>SQL</div>
+                        <div class="progress-container">
+                            <div class="progress-bar" id="sql-progress" style="width: 0%">
+                                <span class="progress-text">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>DBMS</div>
+                        <div class="progress-container">
+                            <div class="progress-bar" id="dbms-progress" style="width: 0%">
+                                <span class="progress-text">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>NoSQL</div>
+                        <div class="progress-container">
+                            <div class="progress-bar" id="nosql-progress" style="width: 0%">
+                                <span class="progress-text">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>Excel</div>
+                        <div class="progress-container">
+                            <div class="progress-bar" id="excel-progress" style="width: 0%">
+                                <span class="progress-text">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Performance Trends Card -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Performance Trends</span>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="performance-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quiz Improvement Card -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Quiz Improvement Insights</span>
+                </div>
+                <div class="card-body" id="improvement-container">
+                    <p>Select a user to view improvement insights</p>
+                </div>
+            </div>
+            
+            <!-- Leaderboard Card -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Leaderboard</span>
+                    <select id="leaderboard-category">
+                        <option value="overall">Overall</option>
+                        <option value="sql">SQL</option>
+                        <option value="dbms">DBMS</option>
+                        <option value="nosql">NoSQL</option>
+                        <option value="excel">Excel</option>
+                    </select>
+                </div>
+                <div class="card-body">
+                    <div id="leaderboard-container">
+                        <p>Loading leaderboard data...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Global variables
+        let userData = {};
+        let currentUser = 0;
+        let leaderboardData = [];
+        let performanceChart = null;
+        
+        // Initialize the dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch users for dropdown
+            fetchUsers();
+            
+            // Setup event listeners
+            document.getElementById('user-select').addEventListener('change', function() {
+                currentUser = this.value;
+                updateDashboard();
+            });
+            
+            document.getElementById('date-range').addEventListener('change', updateDashboard);
+            document.getElementById('leaderboard-category').addEventListener('change', updateLeaderboard);
+        });
+        
+        // Fetch users from the database
+        function fetchUsers() {
+            fetch('get_users.php')
+                .then(response => response.json())
+                .then(data => {
+                    const userSelect = document.getElementById('user-select');
+                    userSelect.innerHTML = '';
+                    
+                    if (data.length > 0) {
+                        data.forEach(user => {
+                            const option = document.createElement('option');
+                            option.value = user.id;
+                            option.textContent = user.name;
+                            userSelect.appendChild(option);
+                        });
+                        
+                        currentUser = data[0].id;
+                        updateDashboard();
+                    } else {
+                        userSelect.innerHTML = '<option value="0">No users found</option>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching users:', error);
+                    document.getElementById('user-select').innerHTML = '<option value="0">Error loading users</option>';
+                });
+        }
+        
+        // Update all dashboard components
+        function updateDashboard() {
+            if (currentUser > 0) {
+                const dateRange = document.getElementById('date-range').value;
+                
+                // Fetch user data
+                fetch(`get_user_data.php?user_id=${currentUser}&date_range=${dateRange}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        userData = data;
+                        updateOverallProgress(data);
+                        updatePerformanceChart(data);
+                        updateImprovementInsights(data);
+                        fetchLeaderboard();
+                    })
+                    .catch(error => {
+                        console.error('Error fetching user data:', error);
+                    });
+            }
+        }
+        
+        // Update overall progress section
+        function updateOverallProgress(data) {
+            // Update stats
+            document.getElementById('overall-score').textContent = `${data.overall_score.toFixed(1)}%`;
+            document.getElementById('completed-assessments').textContent = data.total_assessments;
+            document.getElementById('proficiency-level').textContent = data.proficiency_level;
+            
+            // Update progress bars
+            const updateProgress = (id, score) => {
+                const progressBar = document.getElementById(id);
+                const progressPercent = `${score.toFixed(1)}%`;
+                progressBar.style.width = progressPercent;
+                progressBar.querySelector('.progress-text').textContent = progressPercent;
+            };
+            
+            updateProgress('sql-progress', data.category_scores.sql);
+            updateProgress('dbms-progress', data.category_scores.dbms);
+            updateProgress('nosql-progress', data.category_scores.nosql);
+            updateProgress('excel-progress', data.category_scores.excel);
+        }
+        
+        // Update performance chart
+        function updatePerformanceChart(data) {
+            const ctx = document.getElementById('performance-chart').getContext('2d');
+            
+            // Destroy previous chart if it exists
+            if (performanceChart) {
+                performanceChart.destroy();
+            }
+            
+            // Prepare chart data
+            const assessmentDates = data.assessment_history.map(item => {
+                const date = new Date(item.assessment_date);
+                return `${date.getMonth()+1}/${date.getDate()}`;
+            });
+            
+            const sqlScores = data.assessment_history.map(item => item.sql_score);
+            const dbmsScores = data.assessment_history.map(item => item.dbms_score);
+            const nosqlScores = data.assessment_history.map(item => item.nosql_score);
+            const excelScores = data.assessment_history.map(item => item.excel_score);
+            
+            // Create chart
+            performanceChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: assessmentDates,
+                    datasets: [
+                        {
+                            label: 'SQL',
+                            data: sqlScores,
+                            borderColor: '#4361ee',
+                            backgroundColor: 'rgba(67, 97, 238, 0.1)',
+                            tension: 0.4,
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'DBMS',
+                            data: dbmsScores,
+                            borderColor: '#4895ef',
+                            backgroundColor: 'rgba(72, 149, 239, 0.1)',
+                            tension: 0.4,
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'NoSQL',
+                            data: nosqlScores,
+                            borderColor: '#f72585',
+                            backgroundColor: 'rgba(247, 37, 133, 0.1)',
+                            tension: 0.4,
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Excel',
+                            data: excelScores,
+                            borderColor: '#4cc9f0',
+                            backgroundColor: 'rgba(76, 201, 240, 0.1)',
+                            tension: 0.4,
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Score (%)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Assessment Date'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.parsed.y.toFixed(1)}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Update improvement insights
+        function updateImprovementInsights(data) {
+            const container = document.getElementById('improvement-container');
+            
+            if (data.improvements.length === 0) {
+                container.innerHTML = '<p>No improvement data available yet. Complete more assessments to see insights.</p>';
+                return;
+            }
+            
+            let html = '';
+            
+            data.improvements.forEach(item => {
+                const changeIcon = item.change > 0 ? '↑' : (item.change < 0 ? '↓' : '→');
+                const changeClass = item.change > 0 ? 'trend-up' : (item.change < 0 ? 'trend-down' : '');
+                const changeText = item.change !== 0 ? `${Math.abs(item.change).toFixed(1)}%` : 'No change';
+                
+                html += `
+                    <div class="improvement-card">
+                        <div class="improvement-icon ${changeClass}">${changeIcon}</div>
+                        <div>
+                            <strong>${item.category}</strong>
+                            <div>${item.change > 0 ? 'Improved by' : (item.change < 0 ? 'Decreased by' : 'Maintained')} ${changeText}</div>
+                            <div>Current: ${item.current_score.toFixed(1)}% | Previous: ${item.previous_score.toFixed(1)}%</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        // Fetch and update leaderboard
+        function fetchLeaderboard() {
+            const category = document.getElementById('leaderboard-category').value;
+            
+            fetch(`get_leaderboard.php?category=${category}`)
+                .then(response => response.json())
+                .then(data => {
+                    leaderboardData = data;
+                    updateLeaderboard();
+                })
+                .catch(error => {
+                    console.error('Error fetching leaderboard:', error);
+                    document.getElementById('leaderboard-container').innerHTML = 
+                        '<p>Error loading leaderboard data.</p>';
+                });
+        }
+        
+        // Update leaderboard display
+        function updateLeaderboard() {
+            const container = document.getElementById('leaderboard-container');
+            const category = document.getElementById('leaderboard-category').value;
+            
+            if (leaderboardData.length === 0) {
+                container.innerHTML = '<p>No leaderboard data available.</p>';
+                return;
+            }
+            
+            let html = '';
+            
+            leaderboardData.forEach((user, index) => {
+                const isCurrentUser = parseInt(user.id) === parseInt(currentUser);
+                const highlightClass = isCurrentUser ? 'user-highlight' : '';
+                html += `
+                    <div class="leaderboard-item ${highlightClass}">
+                        <div class="rank">#${index + 1}</div>
+                        <div class="user-info">
+                            <div>${user.name}</div>
+                            <div style="font-size: 0.8rem; color: #6c757d;">${user.experience}</div>
+                        </div>
+                        <div class="score">${user[category + '_score'].toFixed(1)}%</div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

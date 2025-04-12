@@ -1,0 +1,726 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Learning Roadmap</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --secondary: #475569;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .tools-nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .tool-btn {
+            background-color: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-btn:hover {
+            background-color: var(--primary-light);
+            color: white;
+        }
+        
+        .tool-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .roadmap-section {
+            display: none;
+        }
+        
+        .roadmap-section.active {
+            display: block;
+        }
+        
+        .overview {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+        
+        .overview h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .level-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .level-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .level-header {
+            padding: 1rem;
+            font-weight: 600;
+            color: white;
+            text-align: center;
+        }
+        
+        .beginner .level-header {
+            background-color: var(--success);
+        }
+        
+        .intermediate .level-header {
+            background-color: var(--warning);
+        }
+        
+        .advanced .level-header {
+            background-color: var(--danger);
+        }
+        
+        .level-content {
+            padding: 1.5rem;
+        }
+        
+        .level-content ul {
+            padding-left: 1.5rem;
+        }
+        
+        .level-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .resources {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+        
+        .resources h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .tool-btn {
+                padding: 0.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tech Learning Roadmap</h1>
+        <p>Master DBMS, Excel, SQL, and NoSQL at your own pace</p>
+    </header>
+    
+    <div class="container">
+        <div class="tools-nav">
+            <button class="tool-btn active" data-tool="all">All Tools</button>
+            <button class="tool-btn" data-tool="dbms">DBMS</button>
+            <button class="tool-btn" data-tool="excel">Excel</button>
+            <button class="tool-btn" data-tool="sql">SQL</button>
+            <button class="tool-btn" data-tool="nosql">NoSQL</button>
+        </div>
+        
+        <!-- All Tools Section -->
+        <section class="roadmap-section active" id="all">
+            <div class="overview">
+                <h3>Learning Roadmap Overview</h3>
+                <p>This roadmap provides a structured approach to learning key data management and analysis technologies. Whether you're just starting out or looking to advance your skills, each section guides you through a progressive learning path from beginner to advanced levels.</p>
+                <p>Choose a specific tool from the navigation above or scroll down to explore the complete roadmap.</p>
+            </div>
+            
+            <!-- DBMS -->
+            <h2>Database Management Systems (DBMS)</h2>
+            <div class="level-container">
+                <div class="level-card beginner">
+                    <div class="level-header">Beginner</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>Introduction to databases and DBMS concepts</li>
+                            <li>Database models (Relational, Hierarchical, Network)</li>
+                            <li>Entity-Relationship diagrams</li>
+                            <li>Basic database design principles</li>
+                            <li>Tables, records, fields, and keys</li>
+                            <li>Primary and foreign keys</li>
+                            <li>Installing a simple DBMS (like SQLite)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="level-card intermediate">
+                    <div class="level-header">Intermediate</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>Normalization (1NF, 2NF, 3NF)</li>
+                            <li>Transaction management</li>
+                            <li>Concurrency control</li>
+                            <li>Backup and recovery methods</li>
+                            <li>Data integrity constraints</li>
+                            <li>Indexing strategies</li>
+                            <li>Database security fundamentals</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="level-card advanced">
+                    <div class="level-header">Advanced</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>Query optimization techniques</li>
+                            <li>Database performance tuning</li>
+                            <li>Distributed databases</li>
+                            <li>Data warehousing concepts</li>
+                            <li>OLAP vs OLTP systems</li>
+                            <li>Advanced database security</li>
+                            <li>Database administration tasks</li>
+                            <li>High availability and disaster recovery</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Excel -->
+            <h2>Microsoft Excel</h2>
+            <div class="level-container">
+                <div class="level-card beginner">
+                    <div class="level-header">Beginner</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>Excel interface and basic navigation</li>
+                            <li>Cell formatting and styling</li>
+                            <li>Basic formulas (SUM, AVERAGE, COUNT)</li>
+                            <li>Cell references (relative vs absolute)</li>
+                            <li>Creating basic charts</li>
+                            <li>Simple data filtering and sorting</li>
+                            <li>Data entry and validation</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="level-card intermediate">
+                    <div class="level-header">Intermediate</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>Lookup functions (VLOOKUP, HLOOKUP)</li>
+                            <li>Logical functions (IF, AND, OR, NOT)</li>
+                            <li>Date and time functions</li>
+                            <li>Text manipulation functions</li>
+                            <li>PivotTables and PivotCharts</li>
+                            <li>Data analysis tools</li>
+                            <li>Conditional formatting</li>
+                            <li>Named ranges and data tables</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="level-card advanced">
+                    <div class="level-header">Advanced</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>Advanced functions (INDEX-MATCH, OFFSET, INDIRECT)</li>
+                            <li>Array formulas and dynamic arrays</li>
+                            <li>Power Query for data transformation</li>
+                            <li>Power Pivot for data modeling</li>
+                            <li>DAX (Data Analysis Expressions)</li>
+                            <li>VBA programming and macros</li>
+                            <li>Excel automation</li>
+                            <li>Advanced data visualization techniques</li>
+                            <li>Excel add-ins and API integration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SQL -->
+            <h2>SQL (Structured Query Language)</h2>
+            <div class="level-container">
+                <div class="level-card beginner">
+                    <div class="level-header">Beginner</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>SQL basics and syntax</li>
+                            <li>CREATE, ALTER, DROP statements</li>
+                            <li>Data types in SQL</li>
+                            <li>Simple SELECT queries</li>
+                            <li>INSERT, UPDATE, DELETE operations</li>
+                            <li>WHERE clause and basic filtering</li>
+                            <li>ORDER BY and sorting data</li>
+                            <li>NULL values handling</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="level-card intermediate">
+                    <div class="level-header">Intermediate</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>JOINs (INNER, LEFT, RIGHT, FULL)</li>
+                            <li>GROUP BY and aggregation functions</li>
+                            <li>Subqueries and nested queries</li>
+                            <li>UNION, INTERSECT, EXCEPT operations</li>
+                            <li>Views and temporary tables</li>
+                            <li>Indexes and their implementation</li>
+                            <li>Constraints (UNIQUE, CHECK, DEFAULT)</li>
+                            <li>Date and string functions</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="level-card advanced">
+                    <div class="level-header">Advanced</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>Window functions (OVER, PARTITION BY)</li>
+                            <li>Common Table Expressions (CTEs)</li>
+                            <li>Stored procedures and functions</li>
+                            <li>Triggers and events</li>
+                            <li>Transaction management (COMMIT, ROLLBACK)</li>
+                            <li>Query optimization and execution plans</li>
+                            <li>Handling large datasets efficiently</li>
+                            <li>SQL injection prevention</li>
+                            <li>ACID properties and implementation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NoSQL -->
+            <h2>NoSQL Databases</h2>
+            <div class="level-container">
+                <div class="level-card beginner">
+                    <div class="level-header">Beginner</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>Introduction to NoSQL concepts</li>
+                            <li>NoSQL vs SQL databases</li>
+                            <li>Types of NoSQL databases (Document, Key-Value, Column, Graph)</li>
+                            <li>Basic CRUD operations</li>
+                            <li>Document structure (JSON/BSON)</li>
+                            <li>Setting up a NoSQL database (MongoDB, Redis)</li>
+                            <li>Simple queries and data retrieval</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="level-card intermediate">
+                    <div class="level-header">Intermediate</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>Data modeling for NoSQL</li>
+                            <li>Indexing in NoSQL databases</li>
+                            <li>Aggregation framework</li>
+                            <li>Complex queries and filtering</li>
+                            <li>Embedding vs referencing data</li>
+                            <li>Working with arrays and nested documents</li>
+                            <li>Schema validation strategies</li>
+                            <li>Using NoSQL database drivers</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="level-card advanced">
+                    <div class="level-header">Advanced</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>Sharding and data distribution</li>
+                            <li>Replication and high availability</li>
+                            <li>Consistency models (BASE vs ACID)</li>
+                            <li>Performance optimization techniques</li>
+                            <li>Map-reduce operations</li>
+                            <li>Multi-document transactions</li>
+                            <li>Time-series data in NoSQL</li>
+                            <li>Security and authentication</li>
+                            <li>Polyglot persistence strategies</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resources">
+                <h3>Recommended Learning Approach</h3>
+                <ol>
+                    <li><strong>Start with fundamentals:</strong> Begin with DBMS concepts to understand database principles.</li>
+                    <li><strong>Learn practical skills first:</strong> Excel provides immediate practical value and helps understand data manipulation.</li>
+                    <li><strong>Build SQL proficiency:</strong> After understanding DBMS concepts, SQL is essential for working with relational databases.</li>
+                    <li><strong>Explore NoSQL:</strong> Once comfortable with SQL, learn NoSQL to understand alternative data models.</li>
+                    <li><strong>Practice with projects:</strong> Apply what you've learned in real-world projects to solidify your knowledge.</li>
+                    <li><strong>Continuous learning:</strong> Technologies evolve, so keep up with the latest trends and advancements.</li>
+                </ol>
+            </div>
+        </section>
+        
+        <!-- DBMS Section -->
+        <section class="roadmap-section" id="dbms">
+            <div class="overview">
+                <h3>Database Management Systems (DBMS) Learning Path</h3>
+                <p>Database Management Systems are software applications that interact with users, other applications, and the database itself to capture and analyze data. A thorough understanding of DBMS concepts is fundamental for anyone working with data.</p>
+            </div>
+            
+            <div class="level-container">
+                <div class="level-card beginner">
+                    <div class="level-header">Beginner</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>Introduction to databases and DBMS concepts</li>
+                            <li>Database models (Relational, Hierarchical, Network)</li>
+                            <li>Entity-Relationship diagrams</li>
+                            <li>Basic database design principles</li>
+                            <li>Tables, records, fields, and keys</li>
+                            <li>Primary and foreign keys</li>
+                            <li>Installing a simple DBMS (like SQLite)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="level-card intermediate">
+                    <div class="level-header">Intermediate</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>Normalization (1NF, 2NF, 3NF)</li>
+                            <li>Transaction management</li>
+                            <li>Concurrency control</li>
+                            <li>Backup and recovery methods</li>
+                            <li>Data integrity constraints</li>
+                            <li>Indexing strategies</li>
+                            <li>Database security fundamentals</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="level-card advanced">
+                    <div class="level-header">Advanced</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>Query optimization techniques</li>
+                            <li>Database performance tuning</li>
+                            <li>Distributed databases</li>
+                            <li>Data warehousing concepts</li>
+                            <li>OLAP vs OLTP systems</li>
+                            <li>Advanced database security</li>
+                            <li>Database administration tasks</li>
+                            <li>High availability and disaster recovery</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resources">
+                <h3>DBMS Learning Resources</h3>
+                <ul>
+                    <li><strong>Books:</strong> "Database System Concepts" by Silberschatz, Korth and Sudarshan</li>
+                    <li><strong>Practice:</strong> Set up a local database and practice designing schemas</li>
+                    <li><strong>Projects:</strong> Create a small application that interacts with a database</li>
+                    <li><strong>Advanced:</strong> Experiment with different DBMS platforms (MySQL, PostgreSQL, Oracle)</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Excel Section -->
+        <section class="roadmap-section" id="excel">
+            <div class="overview">
+                <h3>Microsoft Excel Learning Path</h3>
+                <p>Excel is a powerful spreadsheet application used for data analysis, visualization, and management. Learning Excel provides essential skills for data manipulation and analysis in virtually every industry.</p>
+            </div>
+            
+            <div class="level-container">
+                <div class="level-card beginner">
+                    <div class="level-header">Beginner</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>Excel interface and basic navigation</li>
+                            <li>Cell formatting and styling</li>
+                            <li>Basic formulas (SUM, AVERAGE, COUNT)</li>
+                            <li>Cell references (relative vs absolute)</li>
+                            <li>Creating basic charts</li>
+                            <li>Simple data filtering and sorting</li>
+                            <li>Data entry and validation</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="level-card intermediate">
+                    <div class="level-header">Intermediate</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>Lookup functions (VLOOKUP, HLOOKUP)</li>
+                            <li>Logical functions (IF, AND, OR, NOT)</li>
+                            <li>Date and time functions</li>
+                            <li>Text manipulation functions</li>
+                            <li>PivotTables and PivotCharts</li>
+                            <li>Data analysis tools</li>
+                            <li>Conditional formatting</li>
+                            <li>Named ranges and data tables</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="level-card advanced">
+                    <div class="level-header">Advanced</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>Advanced functions (INDEX-MATCH, OFFSET, INDIRECT)</li>
+                            <li>Array formulas and dynamic arrays</li>
+                            <li>Power Query for data transformation</li>
+                            <li>Power Pivot for data modeling</li>
+                            <li>DAX (Data Analysis Expressions)</li>
+                            <li>VBA programming and macros</li>
+                            <li>Excel automation</li>
+                            <li>Advanced data visualization techniques</li>
+                            <li>Excel add-ins and API integration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resources">
+                <h3>Excel Learning Resources</h3>
+                <ul>
+                    <li><strong>Practice:</strong> Download datasets and try to analyze them with Excel</li>
+                    <li><strong>Projects:</strong> Create a personal budget, inventory management system, or data dashboard</li>
+                    <li><strong>Advanced:</strong> Build an automated reporting system using VBA</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- SQL Section -->
+        <section class="roadmap-section" id="sql">
+            <div class="overview">
+                <h3>SQL (Structured Query Language) Learning Path</h3>
+                <p>SQL is the standard language for managing and manipulating relational databases. It's an essential skill for data scientists, analysts, and developers working with structured data.</p>
+            </div>
+            
+            <div class="level-container">
+                <div class="level-card beginner">
+                    <div class="level-header">Beginner</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>SQL basics and syntax</li>
+                            <li>CREATE, ALTER, DROP statements</li>
+                            <li>Data types in SQL</li>
+                            <li>Simple SELECT queries</li>
+                            <li>INSERT, UPDATE, DELETE operations</li>
+                            <li>WHERE clause and basic filtering</li>
+                            <li>ORDER BY and sorting data</li>
+                            <li>NULL values handling</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="level-card intermediate">
+                    <div class="level-header">Intermediate</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>JOINs (INNER, LEFT, RIGHT, FULL)</li>
+                            <li>GROUP BY and aggregation functions</li>
+                            <li>Subqueries and nested queries</li>
+                            <li>UNION, INTERSECT, EXCEPT operations</li>
+                            <li>Views and temporary tables</li>
+                            <li>Indexes and their implementation</li>
+                            <li>Constraints (UNIQUE, CHECK, DEFAULT)</li>
+                            <li>Date and string functions</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="level-card advanced">
+                    <div class="level-header">Advanced</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>Window functions (OVER, PARTITION BY)</li>
+                            <li>Common Table Expressions (CTEs)</li>
+                            <li>Stored procedures and functions</li>
+                            <li>Triggers and events</li>
+                            <li>Transaction management (COMMIT, ROLLBACK)</li>
+                            <li>Query optimization and execution plans</li>
+                            <li>Handling large datasets efficiently</li>
+                            <li>SQL injection prevention</li>
+                            <li>ACID properties and implementation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resources">
+                <h3>SQL Learning Resources</h3>
+                <ul>
+                    <li><strong>Practice:</strong> Use platforms like SQLZoo or HackerRank for interactive SQL exercises</li>
+                    <li><strong>Projects:</strong> Create a database for a small business or personal project</li>
+                    <li><strong>Advanced:</strong> Optimize complex queries and analyze execution plans</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- NoSQL Section -->
+        <section class="roadmap-section" id="nosql">
+            <div class="overview">
+                <h3>NoSQL Databases Learning Path</h3>
+                <p>NoSQL databases provide flexible schemas for unstructured data. They're designed for specific data models and have flexible schemas for building modern applications. Understanding NoSQL is crucial for working with big data and distributed systems.</p>
+            </div>
+            
+            <div class="level-container">
+                <div class="level-card beginner">
+                    <div class="level-header">Beginner</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>Introduction to NoSQL concepts</li>
+                            <li>NoSQL vs SQL databases</li>
+                            <li>Types of NoSQL databases (Document, Key-Value, Column, Graph)</li>
+                            <li>Basic CRUD operations</li>
+                            <li>Document structure (JSON/BSON)</li>
+                            <li>Setting up a NoSQL database (MongoDB, Redis)</li>
+                            <li>Simple queries and data retrieval</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="level-card intermediate">
+                    <div class="level-header">Intermediate</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>Data modeling for NoSQL</li>
+                            <li>Indexing in NoSQL databases</li>
+                            <li>Aggregation framework</li>
+                            <li>Complex queries and filtering</li>
+                            <li>Embedding vs referencing data</li>
+                            <li>Working with arrays and nested documents</li>
+                            <li>Schema validation strategies</li>
+                            <li>Using NoSQL database drivers</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="level-card advanced">
+                    <div class="level-header">Advanced</div>
+                    <div class="level-content">
+                        <ul>
+                            <li>Sharding and data distribution</li>
+                            <li>Replication and high availability</li>
+                            <li>Consistency models (BASE vs ACID)</li>
+                            <li>Performance optimization techniques</li>
+                            <li>Map-reduce operations</li>
+                            <li>Multi-document transactions</li>
+                            <li>Time-series data in NoSQL</li>
+                            <li>Security and authentication</li>
+                            <li>Polyglot persistence strategies</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resources">
+                <h3>NoSQL Learning Resources</h3>
+                <ul>
+                    <li><strong>Practice:</strong> Install MongoDB or Redis and experiment with different data models</li>
+                    <li><strong>Projects:</strong> Build a simple application using a NoSQL database</li>
+                    <li><strong>Advanced:</strong> Design a distributed NoSQL solution for a specific use case</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>Tech Learning Roadmap © 2025 | A Comprehensive Guide for Database and Data Analysis Skills</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toolBtns = document.querySelectorAll('.tool-btn');
+            const sections = document.querySelectorAll('.roadmap-section');
+            
+            toolBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tool = this.getAttribute('data-tool');
+                    
+                    // Update active button
+                    toolBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show selected section
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                        if (section.id === tool) {
+                            section.classList.add('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
